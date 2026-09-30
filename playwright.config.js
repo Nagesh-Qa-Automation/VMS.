@@ -23,7 +23,7 @@ export default defineConfig({
   reporter: "html",
 
   use: {
-    headless: false,
+    // headless: false,
 
     //for env
     baseURL: process.env.BASE_URL,
