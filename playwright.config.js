@@ -23,8 +23,6 @@ export default defineConfig({
   reporter: "html",
 
   use: {
-    headless: false,
-
     //for env
     baseURL: process.env.BASE_URL,
     screenshot: "only-on-failure",
