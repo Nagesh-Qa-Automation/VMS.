@@ -57,10 +57,10 @@ test("test", async ({ page }) => {
 
   await sow.endDate.click();
 
-  await page
-    .getByText(today + 1)
-    .nth(0)
-    .click();
+  await page.getByRole("button", { name: "Choose Year" }).click();
+  await page.getByText("2027", { exact: true }).click();
+  await page.getByText("Dec", { exact: true }).click();
+  await page.locator("td").filter({ hasText: "1" }).first().click();
 
   const [fileChooser] = await Promise.all([
     page.waitForEvent("filechooser"),
@@ -101,8 +101,10 @@ test("test", async ({ page }) => {
   await sow.estimatedBudget.fill("20");
   await sow.endDate.click();
 
-  await page.getByText(today).nth(1).click();
-  await expect(page.getByText(today)).toBeVisible();
+  await page.getByRole("button", { name: "Choose Year" }).click();
+  await page.getByText("2027", { exact: true }).click();
+  await page.getByText("Dec", { exact: true }).click();
+  await page.locator("td").filter({ hasText: "1" }).first().click();
 
   const [fileChooser1] = await Promise.all([
     page.waitForEvent("filechooser"),
