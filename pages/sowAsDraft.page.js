@@ -39,5 +39,22 @@ export class SOWPage {
     this.estimatedBudget = page.locator("#estimated-budget");
     this.fileInput = page.locator("#file-input");
     this.uploadComplete = page.getByText("Upload Complete");
+    this.createMilestonesButton = page.locator("#deliverable-save");
+
+    //create standalone variables
+    this.createStandalone = page.getByRole("button", {
+      name: "add Create Standalone",
+    });
+
+    this.deliverableTitle = page.getByRole("textbox", {
+      name: "Deliverable Title *",
+    });
+
+    this.deliverableType = page.getByRole("combobox");
+    this.deliverableSubmitButton = page.locator("#submit-deliverable");
+
+    this.committedSpend = page.getByRole("spinbutton", {
+      name: "Committed Spend *",
+    });
   }
 }

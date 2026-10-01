@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { SOWPage } from "../pages/sow.page";
+import { SOWPage } from "../pages/sowAsDraft.page";
 import { faker, fakerEN_IN } from "@faker-js/faker";
 
 test("test", async ({ page }) => {
@@ -116,4 +116,35 @@ test("test", async ({ page }) => {
   );
 
   await expect(sow.uploadComplete).toBeVisible();
+  await sow.createMilestonesButton.click();
+  await expect(page.getByText("Milestone created")).toBeVisible();
+
+  //create standalone variables
+  await sow.createStandalone.click();
+
+  await sow.deliverableTitle.click();
+  const DeliverableTitle = fakerEN_IN.commerce.productName();
+  console.log(DeliverableTitle);
+  await sow.deliverableTitle.fill(DeliverableTitle);
+
+  await sow.deliverableType.click();
+  const selectDeliverableType = page.getByRole("option");
+  const randomNumber6 = fakerEN_IN.number.int({
+    min: 0,
+    max: (await selectDeliverableType.count()) - 1,
+  });
+  await selectDeliverableType.nth(randomNumber6).click();
+
+  await sow.deliverableSubmitButton.click();
+  await expect(page.getByText("Standalone deliverable created")).toBeVisible();
+
+  await sow.committedSpend.click();
+  await sow.committedSpend.press("ArrowLeft");
+  await sow.committedSpend.press("ArrowLeft");
+  await sow.committedSpend.press("ArrowLeft");
+  await sow.committedSpend.fill("10000");
+
+  await page.getByRole("button", { name: "Save as a Draft" }).click();
+
+  // await expect(page.getByText("SOW created successfully!")).toBeVisible();
 });
