@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { SOWPage } from "../pages/sowAsDraft.page";
+import { SOWPage } from "../../pages/Sow page/sowAsDraft.page";
 import { faker, fakerEN_IN } from "@faker-js/faker";
 
 test("test", async ({ page }) => {

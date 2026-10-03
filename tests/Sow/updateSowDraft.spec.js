@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { fakerEN_IN, faker } from "@faker-js/faker";
-import { UpdateSowPage } from "../pages/updateSowDraft.page";
+import { UpdateSowPage } from "../../pages/Sow page/updateSowDraft.page";
 
 test("Update the created sow draft", async ({ page }) => {
   const sowUpdate = new UpdateSowPage(page);
