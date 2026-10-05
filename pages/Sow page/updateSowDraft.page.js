@@ -2,6 +2,8 @@ import { faker, fakerEN_IN } from "@faker-js/faker";
 
 export class UpdateSowPage {
   constructor(page) {
+    this.page = page;
+
     this.programDashboard = page.getByRole("heading", {
       name: "Program Dashboard",
     });
@@ -49,22 +51,40 @@ export class UpdateSowPage {
   async updateToSubmit() {
     await this.workLocation.click();
     await this.selectRandomOption(this.selectWorkLocation);
-  }
-
-  async committedSd() {
+    await this.uploadFile(
+      "C:/Users/NK/Downloads/10-Day_Advanced_Playwright_Plan.pdf",
+    );
+    await this.getStarted.click();
     await this.committedSpend.click();
     await this.committedSpend.press("ArrowLeft");
     await this.committedSpend.press("ArrowLeft");
     await this.committedSpend.press("ArrowLeft");
     await this.committedSpend.fill("20000");
+    await this.submitButton.click();
   }
 
   async selectRandomOption(locator) {
+    const count = await locator.count();
+
+    if (count === 0) {
+      throw new Error("No options found.");
+    }
+
     const randomNumber = fakerEN_IN.number.int({
       min: 0,
-      max: (await locator.count()) - 1,
+      max: count - 1,
     });
 
     await locator.nth(randomNumber).click();
+  }
+
+  //for upload files
+  async uploadFile(filePath) {
+    const [fileChooser] = await Promise.all([
+      this.page.waitForEvent("filechooser"),
+      this.browse.click(),
+    ]);
+
+    await fileChooser.setFiles(filePath);
   }
 }
